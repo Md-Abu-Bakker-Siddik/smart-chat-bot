@@ -1,0 +1,11 @@
+# Files excluded from the WordPress.org plugin ZIP.
+/.git
+/.gitignore
+/.distignore
+/.cursor
+/node_modules
+/vendor
+*.md
+*.zip
+.DS_Store
+Thumbs.db

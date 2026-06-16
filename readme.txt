@@ -1,0 +1,76 @@
+=== Smart Chat Bot ===
+Contributors: mdabubakkersiddik1
+Tags: chat, chatbot, live chat, customer support, faq
+Requires at least: 6.0
+Tested up to: 6.8
+Requires PHP: 7.4
+Stable tag: 1.0.0
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+
+A lightweight rule-based chat bot widget for your WordPress site.
+
+== Description ==
+
+Smart Chat Bot adds a modern, floating chat widget to your WordPress site so visitors can get instant answers to common questions.
+
+**Free features included:**
+
+* **Floating chat widget** – Clean bubble UI with customizable color and position.
+* **Rule-based replies** – Define keyword triggers and automatic responses (great for FAQs).
+* **Fallback message** – Custom message when no rule matches.
+* **Typing indicator** – Smooth UX while the bot is responding.
+* **Fully translatable** – Ready for localization.
+
+**Upgrade to PRO** for live admin inbox, message storage, real-time replies, and OpenAI integration. See **Smart Chat Bot → Go PRO** in your dashboard.
+
+**How it works**
+
+1. Install and activate the plugin.
+2. Go to **Smart Chat Bot → Settings** to configure the widget and response rules.
+3. Visitors chat from the frontend widget and receive instant keyword-based replies.
+
+== Installation ==
+
+1. Upload the `smart-chat-bot` folder to `/wp-content/plugins/`, or install through the **Plugins** screen.
+2. Activate the plugin.
+3. Navigate to **Smart Chat Bot → Settings** to configure your bot.
+4. Visit your site's frontend to see the chat widget.
+
+== Frequently Asked Questions ==
+
+= Does this plugin require OpenAI? =
+
+No. The free plugin uses keyword-based rules and a fallback message. OpenAI is available in the separate **Smart Chat Bot PRO** add-on.
+
+= Can I reply to visitors manually? =
+
+Live admin replies are a PRO feature. Upgrade via **Smart Chat Bot → Go PRO**.
+
+= Is the chat widget mobile-friendly? =
+
+Yes. The widget is fully responsive.
+
+= What user capability is required? =
+
+Users with `manage_options` (typically Administrators) can access settings.
+
+== Screenshots ==
+
+1. Frontend chat widget on a website.
+2. Settings page with response rules configuration.
+3. Go PRO upgrade page with feature comparison.
+
+== Changelog ==
+
+= 1.0.0 =
+* Initial release.
+* Floating chat widget with customizable appearance.
+* Keyword-based response rules.
+* Go PRO upgrade page.
+* Extension API for Smart Chat Bot PRO add-on.
+
+== Upgrade Notice ==
+
+= 1.0.0 =
+Initial release of Smart Chat Bot.
