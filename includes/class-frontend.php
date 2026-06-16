@@ -45,14 +45,14 @@ class SCB_Frontend {
 			'scb-frontend',
 			SCB_PLUGIN_URL . 'frontend/css/chat.css',
 			array(),
-			SCB_VERSION . '.4'
+			SCB_VERSION
 		);
 
 		wp_enqueue_script(
 			'scb-frontend',
 			SCB_PLUGIN_URL . 'frontend/js/frontend.js',
 			array(),
-			SCB_VERSION . '.4',
+			SCB_VERSION,
 			true
 		);
 

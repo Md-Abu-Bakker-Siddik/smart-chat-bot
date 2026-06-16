@@ -8,26 +8,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Database option key for promotional / license activation.
- */
-define( 'SCB_PRO_LICENSE_OPTION', 'scb_is_pro_active' );
-
-/**
- * Shared promotional license key for testing the activation workflow.
- */
-define( 'SCB_PROMO_LICENSE_KEY', 'FREE-SMART-BOT-2026' );
-
-/**
- * Whether a valid promo / license is stored in the database.
- *
- * @return bool
- */
-function scb_has_promo_license() {
-	return (bool) get_option( SCB_PRO_LICENSE_OPTION, false );
-}
-
-/**
- * Whether the Smart Chat Bot PRO add-on plugin is installed.
+ * Whether the Smart Chat Bot PRO add-on plugin is installed and active.
  *
  * @return bool
  */
@@ -38,39 +19,13 @@ function scb_is_pro_plugin_installed() {
 /**
  * Check whether Smart Chat Bot Pro features are unlocked.
  *
+ * Pro features load when the separate PRO add-on plugin is active.
+ * Extensions may override via the scb_is_pro_active filter.
+ *
  * @return bool
  */
 function scb_is_pro_active() {
-	return (bool) apply_filters( 'scb_is_pro_active', scb_has_promo_license() );
-}
-
-/**
- * Activate the promotional license in the database.
- *
- * @return bool
- */
-function scb_activate_promo_license() {
-	return update_option( SCB_PRO_LICENSE_OPTION, true, false );
-}
-
-/**
- * Remove the promotional license from the database.
- *
- * @return bool
- */
-function scb_deactivate_promo_license() {
-	return delete_option( SCB_PRO_LICENSE_OPTION );
-}
-
-/**
- * Validate a license / promo key string.
- *
- * @param string $key Raw key from user input.
- * @return bool
- */
-function scb_is_valid_promo_license_key( $key ) {
-	$key = sanitize_text_field( $key );
-	return '' !== $key && SCB_PROMO_LICENSE_KEY === $key;
+	return (bool) apply_filters( 'scb_is_pro_active', scb_is_pro_plugin_installed() );
 }
 
 /**
@@ -79,7 +34,7 @@ function scb_is_valid_promo_license_key( $key ) {
  * @return string
  */
 function scb_get_pro_url() {
-	return apply_filters( 'scb_pro_landing_url', 'https://smartchatbot.com/pricing' );
+	return apply_filters( 'scb_pro_landing_url', 'https://profiles.wordpress.org/mdabubakkersiddik1/' );
 }
 
 /**

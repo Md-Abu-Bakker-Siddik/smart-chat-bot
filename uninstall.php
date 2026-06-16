@@ -8,4 +8,3 @@
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
 delete_option( 'scb_settings' );
-delete_option( 'scb_is_pro_active' );

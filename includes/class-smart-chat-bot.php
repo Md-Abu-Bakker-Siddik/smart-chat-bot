@@ -10,7 +10,6 @@ defined( 'ABSPATH' ) || exit;
 require_once SCB_PLUGIN_DIR . 'includes/functions.php';
 require_once SCB_PLUGIN_DIR . 'includes/class-admin-settings.php';
 require_once SCB_PLUGIN_DIR . 'includes/class-admin-go-pro.php';
-require_once SCB_PLUGIN_DIR . 'includes/class-admin-license.php';
 require_once SCB_PLUGIN_DIR . 'includes/class-frontend.php';
 require_once SCB_PLUGIN_DIR . 'includes/class-ajax-handler.php';
 
@@ -39,13 +38,6 @@ class Smart_Chat_Bot {
 	 * @var SCB_Admin_Go_Pro
 	 */
 	public $go_pro;
-
-	/**
-	 * License activation handler.
-	 *
-	 * @var SCB_Admin_License
-	 */
-	public $license;
 
 	/**
 	 * Frontend handler.
@@ -121,7 +113,6 @@ class Smart_Chat_Bot {
 	private function init_components() {
 		$this->admin    = new SCB_Admin_Settings();
 		$this->go_pro   = new SCB_Admin_Go_Pro();
-		$this->license  = new SCB_Admin_License();
 		$this->frontend = new SCB_Frontend();
 		$this->ajax     = new SCB_Ajax_Handler();
 	}
@@ -133,6 +124,9 @@ class Smart_Chat_Bot {
 		if ( false === get_option( 'scb_settings' ) ) {
 			add_option( 'scb_settings', SCB_Admin_Settings::get_default_settings() );
 		}
+
+		// Remove legacy dev-only option from earlier builds.
+		delete_option( 'scb_is_pro_active' );
 	}
 
 	/**

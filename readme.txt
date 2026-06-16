@@ -1,6 +1,6 @@
 === Smart Chat Bot ===
 Contributors: mdabubakkersiddik1
-Tags: chat, chatbot, live chat, customer support, faq
+Tags: chat, chatbot, live chat, customer support, faq, whatsapp
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 7.4
@@ -8,7 +8,7 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A lightweight rule-based chat bot widget for your WordPress site.
+A lightweight rule-based chat bot widget with omnichannel routing for your WordPress site.
 
 == Description ==
 
@@ -16,19 +16,25 @@ Smart Chat Bot adds a modern, floating chat widget to your WordPress site so vis
 
 **Free features included:**
 
-* **Floating chat widget** – Clean bubble UI with customizable color and position.
+* **Floating chat widget** – Modern bubble UI with customizable color and position.
 * **Rule-based replies** – Define keyword triggers and automatic responses (great for FAQs).
+* **Omnichannel routing** – Route visitors to Live Chat, WhatsApp, Messenger, or Telegram.
+* **FAQ quick replies** – Optional button labels for common questions.
 * **Fallback message** – Custom message when no rule matches.
 * **Typing indicator** – Smooth UX while the bot is responding.
 * **Fully translatable** – Ready for localization.
 
-**Upgrade to PRO** for live admin inbox, message storage, real-time replies, and OpenAI integration. See **Smart Chat Bot → Go PRO** in your dashboard.
+**Upgrade to PRO** for live admin inbox, message storage, real-time replies, and OpenAI integration. See **Smart Chat Bot → Go PRO** in your dashboard, or install the separate **Smart Chat Bot PRO** add-on.
 
 **How it works**
 
 1. Install and activate the plugin.
-2. Go to **Smart Chat Bot → Settings** to configure the widget and response rules.
+2. Go to **Smart Chat Bot → Settings** to configure the widget, response rules, and optional messenger links.
 3. Visitors chat from the frontend widget and receive instant keyword-based replies.
+
+**Privacy**
+
+The free plugin does not store chat messages on your server. Messages are processed per request for rule matching only. Message storage is available in the PRO add-on.
 
 == Installation ==
 
@@ -43,13 +49,21 @@ Smart Chat Bot adds a modern, floating chat widget to your WordPress site so vis
 
 No. The free plugin uses keyword-based rules and a fallback message. OpenAI is available in the separate **Smart Chat Bot PRO** add-on.
 
+= Can I connect WhatsApp, Messenger, or Telegram? =
+
+Yes. In **Smart Chat Bot → Settings → Omnichannel Settings**, enable each channel and add your messenger link (for example, a `wa.me`, `m.me`, or `t.me` URL).
+
 = Can I reply to visitors manually? =
 
-Live admin replies are a PRO feature. Upgrade via **Smart Chat Bot → Go PRO**.
+Live admin replies are a PRO feature. Install **Smart Chat Bot PRO** or visit **Smart Chat Bot → Go PRO**.
 
 = Is the chat widget mobile-friendly? =
 
 Yes. The widget is fully responsive.
+
+= Does the free plugin store chat history? =
+
+No. The free version does not save messages to the database.
 
 = What user capability is required? =
 
@@ -57,16 +71,18 @@ Users with `manage_options` (typically Administrators) can access settings.
 
 == Screenshots ==
 
-1. Frontend chat widget on a website.
+1. Frontend chat widget with channel selector.
 2. Settings page with response rules configuration.
-3. Go PRO upgrade page with feature comparison.
+3. Omnichannel settings for WhatsApp, Messenger, and Telegram.
+4. Go PRO upgrade page with feature comparison.
 
 == Changelog ==
 
 = 1.0.0 =
-* Initial release.
+* Initial WordPress.org release.
 * Floating chat widget with customizable appearance.
-* Keyword-based response rules.
+* Keyword-based response rules with FAQ quick replies.
+* Omnichannel routing (Live Chat, WhatsApp, Messenger, Telegram).
 * Go PRO upgrade page.
 * Extension API for Smart Chat Bot PRO add-on.
 

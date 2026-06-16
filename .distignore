@@ -3,6 +3,7 @@
 /.gitignore
 /.distignore
 /.cursor
+/assets
 /node_modules
 /vendor
 *.md

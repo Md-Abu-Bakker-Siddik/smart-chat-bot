@@ -284,16 +284,6 @@ class SCB_Admin_Settings {
 						?>
 					</p>
 				</div>
-			<?php else : ?>
-				<div class="notice notice-success scb-pro-notice">
-					<p>
-						<strong><?php esc_html_e( 'PRO Active:', 'smart-chat-bot' ); ?></strong>
-						<?php esc_html_e( 'Promo lifetime license is active. Premium features are unlocked.', 'smart-chat-bot' ); ?>
-						<a href="<?php echo esc_url( admin_url( 'admin.php?page=' . SCB_Admin_Go_Pro::PAGE_SLUG ) ); ?>">
-							<?php esc_html_e( 'Manage license', 'smart-chat-bot' ); ?>
-						</a>
-					</p>
-				</div>
 			<?php endif; ?>
 
 			<form method="post" action="options.php" id="scb-settings-form">
