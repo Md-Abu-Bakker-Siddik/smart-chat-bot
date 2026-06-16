@@ -4,7 +4,7 @@ Tags: chat, chatbot, live chat, customer support, faq, whatsapp
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -78,6 +78,11 @@ Users with `manage_options` (typically Administrators) can access settings.
 
 == Changelog ==
 
+= 1.0.1 =
+* Human live chat extension API for PRO add-ons (`scb_session_human_takeover`).
+* Improved channel tab layout on the frontend widget.
+* Close button and chat window visibility fixes.
+
 = 1.0.0 =
 * Initial WordPress.org release.
 * Floating chat widget with customizable appearance.
@@ -87,6 +92,9 @@ Users with `manage_options` (typically Administrators) can access settings.
 * Extension API for Smart Chat Bot PRO add-on.
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Improved live chat extension API and frontend widget fixes.
 
 = 1.0.0 =
 Initial release of Smart Chat Bot.

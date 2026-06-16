@@ -71,6 +71,7 @@ class SCB_Frontend {
 					'position'      => $settings['position'],
 					'liveChat'      => scb_is_pro_active(),
 					'pollMs'        => 4000,
+					'humanPollMs'   => 2000,
 					'channelPrompt' => $settings['channel_prompt'],
 					'channels'      => $channels,
 					'faqs'          => scb_get_faq_items( $settings['rules'] ),
@@ -83,6 +84,7 @@ class SCB_Frontend {
 						'channelWhatsapp' => __( 'WhatsApp', 'smart-chat-bot' ),
 						'channelMessenger' => __( 'Messenger', 'smart-chat-bot' ),
 						'channelTelegram' => __( 'Telegram', 'smart-chat-bot' ),
+						'liveChatPlaceholder' => __( 'Message support…', 'smart-chat-bot' ),
 					),
 				)
 			)

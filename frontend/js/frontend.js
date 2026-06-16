@@ -21,6 +21,7 @@
 	var SESSION_KEY = 'scb_session_id';
 	var CHANNEL_KEY = 'scb_current_channel';
 	var CHANNEL_SELECTED_KEY = 'scb_channel_selected';
+	var HUMAN_TAKEOVER_PREFIX = 'scb_human_takeover_';
 
 	var current_channel = 'live_chat';
 	var isOpen = false;
@@ -28,6 +29,7 @@
 	var sessionId = '';
 	var lastMessageId = 0;
 	var pollTimer = null;
+	var humanTakeover = false;
 
 	function getStorage(key) {
 		try {
@@ -53,6 +55,38 @@
 
 	function isExternalChannel(channel) {
 		return channel === 'whatsapp' || channel === 'messenger' || channel === 'telegram';
+	}
+
+	function getHumanTakeoverKey(id) {
+		return HUMAN_TAKEOVER_PREFIX + (id || sessionId || '');
+	}
+
+	function loadHumanTakeoverState() {
+		if (!sessionId) {
+			humanTakeover = false;
+			return;
+		}
+		humanTakeover = getStorage(getHumanTakeoverKey(sessionId)) === '1';
+	}
+
+	function setHumanTakeover(active) {
+		humanTakeover = !!active;
+		if (!sessionId) {
+			return;
+		}
+		setStorage(getHumanTakeoverKey(sessionId), humanTakeover ? '1' : '0');
+		updateInputState();
+	}
+
+	function isLiveHumanChat() {
+		return !!(scbData.liveChat && current_channel === 'live_chat' && humanTakeover);
+	}
+
+	function getPollInterval() {
+		if (isLiveHumanChat()) {
+			return scbData.humanPollMs || 2000;
+		}
+		return scbData.pollMs || 4000;
 	}
 
 	function getEnabledChannels() {
@@ -99,6 +133,8 @@
 		form.querySelector('.scb-send').disabled = false;
 		if (external) {
 			input.placeholder = scbData.placeholder || 'Ask a question…';
+		} else if (isLiveHumanChat()) {
+			input.placeholder = scbData.i18n.liveChatPlaceholder || scbData.placeholder || 'Type your message…';
 		} else {
 			input.placeholder = scbData.placeholder || '';
 		}
@@ -246,7 +282,7 @@
 		if (!scbData.liveChat || !sessionId || !isOpen || current_channel !== 'live_chat') {
 			return;
 		}
-		pollTimer = setInterval(pollAdminReplies, scbData.pollMs || 4000);
+		pollTimer = setInterval(pollAdminReplies, getPollInterval());
 	}
 
 	function stopPolling() {
@@ -270,15 +306,21 @@
 		fetch(scbData.ajaxUrl, { method: 'POST', credentials: 'same-origin', body: body })
 			.then(function (res) { return res.json(); })
 			.then(function (data) {
-				if (!data.success || !data.data || !data.data.messages) {
+				if (!data.success || !data.data) {
 					return;
 				}
-				data.data.messages.forEach(function (msg) {
-					if (msg.id > lastMessageId) {
-						lastMessageId = msg.id;
-					}
-					appendMessage(msg.message, 'admin');
-				});
+				if (typeof data.data.human_takeover === 'boolean') {
+					setHumanTakeover(data.data.human_takeover);
+				}
+				if (data.data.messages && data.data.messages.length) {
+					setHumanTakeover(true);
+					data.data.messages.forEach(function (msg) {
+						if (msg.id > lastMessageId) {
+							lastMessageId = msg.id;
+						}
+						appendMessage(msg.message, 'admin');
+					});
+				}
 			})
 			.catch(function () {});
 	}
@@ -297,6 +339,9 @@
 
 		input.focus();
 		startPolling();
+		if (sessionId && scbData.liveChat && current_channel === 'live_chat') {
+			pollAdminReplies();
+		}
 	}
 
 	function closeChat(e) {
@@ -323,10 +368,16 @@
 
 	function sendMessage(text) {
 		var sendBtn = form.querySelector('.scb-send');
-		sendBtn.disabled = true;
+		var liveHuman = isLiveHumanChat();
 
 		appendMessage(text, 'user');
-		showTyping();
+
+		if (!liveHuman) {
+			showTyping();
+			sendBtn.disabled = true;
+		} else {
+			hideTyping();
+		}
 
 		var body = new FormData();
 		body.append('action', 'scb_send_message');
@@ -345,6 +396,12 @@
 					if (data.data.session_id) {
 						sessionId = data.data.session_id;
 						setStorage(SESSION_KEY, sessionId);
+						loadHumanTakeoverState();
+					}
+					if (data.data.human_takeover) {
+						setHumanTakeover(true);
+					} else if (data.data.human_takeover === false) {
+						setHumanTakeover(false);
 					}
 					if (data.data.reply) {
 						if (isExternalChannel(current_channel) && data.data.cta) {
@@ -356,14 +413,16 @@
 					if (isOpen && current_channel === 'live_chat') {
 						startPolling();
 					}
-				} else {
+				} else if (!liveHuman) {
 					var errMsg = (data.data && data.data.message) ? data.data.message : (scbData.i18n.errorGeneric || 'Something went wrong.');
 					appendMessage(errMsg, 'bot');
 				}
 			})
 			.catch(function () {
 				hideTyping();
-				appendMessage(scbData.i18n.errorNetwork || 'Unable to connect.', 'bot');
+				if (!liveHuman) {
+					appendMessage(scbData.i18n.errorNetwork || 'Unable to connect.', 'bot');
+				}
 			})
 			.finally(function () {
 				sendBtn.disabled = false;
@@ -372,6 +431,7 @@
 	}
 
 	sessionId = getStorage(SESSION_KEY);
+	loadHumanTakeoverState();
 	var savedChannel = getStorage(CHANNEL_KEY);
 	if (savedChannel) {
 		current_channel = savedChannel;

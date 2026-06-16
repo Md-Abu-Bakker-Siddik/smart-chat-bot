@@ -3,7 +3,7 @@
  * Plugin Name:       Smart Chat Bot
  * Plugin URI:        https://wordpress.org/plugins/smart-chat-bot/
  * Description:       A lightweight rule-based chat bot widget for your WordPress site.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Md Abu Bakker Siddik
@@ -18,7 +18,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'SCB_VERSION', '1.0.0' );
+define( 'SCB_VERSION', '1.0.1' );
 define( 'SCB_PLUGIN_FILE', __FILE__ );
 define( 'SCB_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'SCB_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
