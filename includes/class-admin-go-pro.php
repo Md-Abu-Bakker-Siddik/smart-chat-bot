@@ -139,19 +139,41 @@ class SCB_Admin_Go_Pro {
 			return;
 		}
 
-		$features = $this->get_features();
-		$pro_url  = scb_get_pro_url();
+		$features     = $this->get_features();
+		$early_access = scb_is_pro_early_access();
+		$pro_url      = $early_access ? scb_get_pro_download_url() : scb_get_pro_url();
 		?>
 		<div class="wrap scb-go-pro-wrap">
 			<div class="scb-go-pro-hero">
-				<span class="scb-go-pro-badge"><?php esc_html_e( 'Upgrade', 'smart-chat-bot' ); ?></span>
-				<h1><?php esc_html_e( 'Unlock Smart Chat Bot PRO', 'smart-chat-bot' ); ?></h1>
+				<span class="scb-go-pro-badge">
+					<?php echo $early_access ? esc_html__( 'Early Access', 'smart-chat-bot' ) : esc_html__( 'Upgrade', 'smart-chat-bot' ); ?>
+				</span>
+				<h1>
+					<?php
+					echo $early_access
+						? esc_html__( 'Get Smart Chat Bot PRO — Free Early Access', 'smart-chat-bot' )
+						: esc_html__( 'Unlock Smart Chat Bot PRO', 'smart-chat-bot' );
+					?>
+				</h1>
 				<p class="scb-go-pro-subtitle">
-					<?php esc_html_e( 'Supercharge your chat widget with live messaging, conversation history, and AI-powered replies.', 'smart-chat-bot' ); ?>
+					<?php
+					echo $early_access
+						? esc_html__( 'Download the PRO add-on free while we grow. Install it alongside this plugin for live inbox, message history, and AI replies.', 'smart-chat-bot' )
+						: esc_html__( 'Supercharge your chat widget with live messaging, conversation history, and AI-powered replies.', 'smart-chat-bot' );
+					?>
 				</p>
 				<a href="<?php echo esc_url( $pro_url ); ?>" class="button button-primary button-hero scb-go-pro-cta" target="_blank" rel="noopener noreferrer">
-					<?php esc_html_e( 'Get Smart Chat Bot PRO →', 'smart-chat-bot' ); ?>
+					<?php
+					echo $early_access
+						? esc_html__( 'Download PRO Free →', 'smart-chat-bot' )
+						: esc_html__( 'Get Smart Chat Bot PRO →', 'smart-chat-bot' );
+					?>
 				</a>
+				<?php if ( $early_access ) : ?>
+					<p class="scb-go-pro-fine-print">
+						<?php esc_html_e( 'Early adopters keep PRO access when paid pricing launches.', 'smart-chat-bot' ); ?>
+					</p>
+				<?php endif; ?>
 			</div>
 
 			<div class="scb-go-pro-grid">
@@ -162,10 +184,26 @@ class SCB_Admin_Go_Pro {
 				</div>
 				<div class="scb-go-pro-card scb-go-pro-card-pro">
 					<h2><?php esc_html_e( 'PRO', 'smart-chat-bot' ); ?></h2>
-					<p class="scb-go-pro-price"><?php esc_html_e( 'Premium', 'smart-chat-bot' ); ?></p>
-					<p class="scb-go-pro-desc"><?php esc_html_e( 'For businesses that need live support and AI automation.', 'smart-chat-bot' ); ?></p>
+					<p class="scb-go-pro-price">
+						<?php
+						echo $early_access
+							? esc_html__( 'Free', 'smart-chat-bot' )
+							: esc_html__( 'Premium', 'smart-chat-bot' );
+						?>
+					</p>
+					<p class="scb-go-pro-desc">
+						<?php
+						echo $early_access
+							? esc_html__( 'Full PRO features at no cost during early access. Limited-time offer.', 'smart-chat-bot' )
+							: esc_html__( 'For businesses that need live support and AI automation.', 'smart-chat-bot' );
+						?>
+					</p>
 					<a href="<?php echo esc_url( $pro_url ); ?>" class="button button-primary scb-go-pro-card-btn" target="_blank" rel="noopener noreferrer">
-						<?php esc_html_e( 'View Pricing', 'smart-chat-bot' ); ?>
+						<?php
+						echo $early_access
+							? esc_html__( 'Download PRO Free', 'smart-chat-bot' )
+							: esc_html__( 'View Pricing', 'smart-chat-bot' );
+						?>
 					</a>
 				</div>
 			</div>
@@ -193,10 +231,26 @@ class SCB_Admin_Go_Pro {
 			</div>
 
 			<div class="scb-go-pro-footer">
-				<h3><?php esc_html_e( 'Ready to upgrade?', 'smart-chat-bot' ); ?></h3>
-				<p><?php esc_html_e( 'Install Smart Chat Bot PRO alongside this plugin to instantly unlock all premium features.', 'smart-chat-bot' ); ?></p>
+				<h3>
+					<?php
+					echo $early_access
+						? esc_html__( 'Ready to unlock PRO?', 'smart-chat-bot' )
+						: esc_html__( 'Ready to upgrade?', 'smart-chat-bot' );
+					?>
+				</h3>
+				<p>
+					<?php
+					echo $early_access
+						? esc_html__( 'Download and install Smart Chat Bot PRO alongside this plugin to instantly unlock all premium features.', 'smart-chat-bot' )
+						: esc_html__( 'Install Smart Chat Bot PRO alongside this plugin to instantly unlock all premium features.', 'smart-chat-bot' );
+					?>
+				</p>
 				<a href="<?php echo esc_url( $pro_url ); ?>" class="button button-primary button-hero" target="_blank" rel="noopener noreferrer">
-					<?php esc_html_e( 'Get PRO Now', 'smart-chat-bot' ); ?>
+					<?php
+					echo $early_access
+						? esc_html__( 'Download PRO Free', 'smart-chat-bot' )
+						: esc_html__( 'Get PRO Now', 'smart-chat-bot' );
+					?>
 				</a>
 			</div>
 		</div>

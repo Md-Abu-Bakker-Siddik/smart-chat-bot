@@ -4,7 +4,7 @@ Tags: chat, chatbot, live chat, customer support, faq, whatsapp
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,7 +24,7 @@ Smart Chat Bot adds a modern, floating chat widget to your WordPress site so vis
 * **Typing indicator** – Smooth UX while the bot is responding.
 * **Fully translatable** – Ready for localization.
 
-**Upgrade to PRO** for live admin inbox, message storage, real-time replies, and OpenAI integration. See **Smart Chat Bot → Go PRO** in your dashboard, or install the separate **Smart Chat Bot PRO** add-on.
+**Upgrade to PRO** for live admin inbox, message storage, real-time replies, and OpenAI integration. The separate **Smart Chat Bot PRO** add-on may be offered as a free early-access download from the author. See **Smart Chat Bot → Go PRO** in your dashboard.
 
 **How it works**
 
@@ -78,6 +78,10 @@ Users with `manage_options` (typically Administrators) can access settings.
 
 == Changelog ==
 
+= 1.0.2 =
+* Go PRO page supports free early-access messaging for the separate PRO add-on.
+* Settings notice updated for early-access period.
+
 = 1.0.1 =
 * Human live chat extension API for PRO add-ons (`scb_session_human_takeover`).
 * Improved channel tab layout on the frontend widget.
@@ -92,6 +96,9 @@ Users with `manage_options` (typically Administrators) can access settings.
 * Extension API for Smart Chat Bot PRO add-on.
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+Go PRO page now highlights free early access for the separate PRO add-on.
 
 = 1.0.1 =
 Improved live chat extension API and frontend widget fixes.

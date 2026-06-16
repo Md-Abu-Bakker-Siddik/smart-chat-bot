@@ -40,6 +40,14 @@
 	opacity: 0.92;
 }
 
+.scb-go-pro-fine-print {
+	margin: 16px auto 0;
+	max-width: 520px;
+	font-size: 13px;
+	line-height: 1.5;
+	opacity: 0.85;
+}
+
 .scb-go-pro-cta {
 	background: #fff !important;
 	color: #4f46e5 !important;

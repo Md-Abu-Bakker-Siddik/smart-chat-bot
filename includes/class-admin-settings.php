@@ -275,12 +275,21 @@ class SCB_Admin_Settings {
 				<div class="notice notice-info scb-pro-notice">
 					<p>
 						<?php
-						printf(
-							/* translators: 1: opening anchor tag, 2: closing anchor tag */
-							esc_html__( 'Want live inbox, message storage, and AI replies? %1$sUpgrade to PRO%2$s.', 'smart-chat-bot' ),
-							'<a href="' . esc_url( admin_url( 'admin.php?page=' . SCB_Admin_Go_Pro::PAGE_SLUG ) ) . '">',
-							'</a>'
-						);
+						if ( scb_is_pro_early_access() ) {
+							printf(
+								/* translators: 1: opening anchor tag, 2: closing anchor tag */
+								esc_html__( 'Live inbox, message storage, and AI replies are available in PRO — %1$sdownload free during early access%2$s.', 'smart-chat-bot' ),
+								'<a href="' . esc_url( admin_url( 'admin.php?page=' . SCB_Admin_Go_Pro::PAGE_SLUG ) ) . '">',
+								'</a>'
+							);
+						} else {
+							printf(
+								/* translators: 1: opening anchor tag, 2: closing anchor tag */
+								esc_html__( 'Want live inbox, message storage, and AI replies? %1$sUpgrade to PRO%2$s.', 'smart-chat-bot' ),
+								'<a href="' . esc_url( admin_url( 'admin.php?page=' . SCB_Admin_Go_Pro::PAGE_SLUG ) ) . '">',
+								'</a>'
+							);
+						}
 						?>
 					</p>
 				</div>

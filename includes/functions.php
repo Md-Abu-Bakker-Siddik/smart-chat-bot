@@ -55,6 +55,27 @@ function scb_get_pro_url() {
 }
 
 /**
+ * Whether the PRO add-on is offered as a free early-access download.
+ *
+ * Used only for Go PRO page copy in the free plugin. License logic lives in the PRO add-on.
+ * Extensions may disable when moving to paid pricing: add_filter( 'scb_pro_early_access_enabled', '__return_false' );
+ *
+ * @return bool
+ */
+function scb_is_pro_early_access() {
+	return (bool) apply_filters( 'scb_pro_early_access_enabled', true );
+}
+
+/**
+ * URL to download the separate PRO add-on plugin ZIP.
+ *
+ * @return string
+ */
+function scb_get_pro_download_url() {
+	return apply_filters( 'scb_pro_download_url', scb_get_pro_url() );
+}
+
+/**
  * Sanitize a chat session identifier.
  *
  * @param string $session_id Raw session ID.
