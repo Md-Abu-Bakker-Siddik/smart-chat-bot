@@ -29,6 +29,23 @@ function scb_is_pro_active() {
 }
 
 /**
+ * Whether a live human agent has taken over the conversation.
+ *
+ * Pro add-ons hook scb_session_human_takeover to provide session state.
+ *
+ * @param string $session_id Chat session ID.
+ * @return bool
+ */
+function scb_session_is_human_takeover( $session_id ) {
+	$session_id = scb_sanitize_session_id( $session_id );
+	if ( '' === $session_id ) {
+		return false;
+	}
+
+	return (bool) apply_filters( 'scb_session_human_takeover', false, $session_id );
+}
+
+/**
  * Get the external Pro landing / pricing page URL.
  *
  * @return string

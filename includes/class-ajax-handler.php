@@ -39,19 +39,21 @@ class SCB_Ajax_Handler {
 			);
 		}
 
-		$settings      = SCB_Admin_Settings::get_settings();
-		$rule_response = scb_match_rule( $message, $settings['rules'] );
-		$is_external   = scb_is_external_channel( $channel );
+		$settings       = SCB_Admin_Settings::get_settings();
+		$is_external    = scb_is_external_channel( $channel );
+		$human_takeover = ! $is_external && '' !== $session_id && scb_session_is_human_takeover( $session_id );
+		$rule_response  = $human_takeover ? null : scb_match_rule( $message, $settings['rules'] );
 
 		$payload = array(
-			'message'       => $message,
-			'session_id'    => $session_id,
-			'channel'       => $channel,
-			'settings'      => $settings,
-			'rule_response' => $rule_response,
-			'response'      => $rule_response,
-			'source'        => null !== $rule_response ? 'rule' : null,
-			'is_external'   => $is_external,
+			'message'        => $message,
+			'session_id'     => $session_id,
+			'channel'        => $channel,
+			'settings'       => $settings,
+			'rule_response'  => $rule_response,
+			'response'       => $rule_response,
+			'source'         => null !== $rule_response ? 'rule' : null,
+			'is_external'    => $is_external,
+			'human_takeover' => $human_takeover,
 		);
 
 		/**
@@ -63,7 +65,10 @@ class SCB_Ajax_Handler {
 		 */
 		$payload = apply_filters( 'scb_message_before_reply', $payload );
 
-		if ( empty( $payload['response'] ) ) {
+		if ( ! empty( $payload['human_takeover'] ) ) {
+			$payload['response'] = '';
+			$payload['source']   = 'human_takeover';
+		} elseif ( empty( $payload['response'] ) ) {
 			$payload['response'] = $settings['fallback_response'];
 			$payload['source']   = 'fallback';
 		}
@@ -76,10 +81,11 @@ class SCB_Ajax_Handler {
 		$payload = apply_filters( 'scb_message_after_reply', $payload );
 
 		$response_data = array(
-			'reply'      => $payload['response'],
-			'session_id' => $payload['session_id'],
-			'source'     => $payload['source'],
-			'channel'    => $channel,
+			'reply'          => $payload['response'],
+			'session_id'     => $payload['session_id'],
+			'source'         => $payload['source'],
+			'channel'        => $channel,
+			'human_takeover' => ! empty( $payload['human_takeover'] ),
 		);
 
 		if ( $is_external ) {
