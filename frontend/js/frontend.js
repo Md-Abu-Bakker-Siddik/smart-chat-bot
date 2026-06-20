@@ -1,27 +1,27 @@
 (function () {
 	'use strict';
 
-	if (typeof scbData === 'undefined') {
+	if (typeof mdscwData === 'undefined') {
 		return;
 	}
 
-	var widget = document.getElementById('scb-widget');
-	var toggle = document.getElementById('scb-toggle');
-	var closeBtn = document.getElementById('scb-close');
-	var windowEl = document.getElementById('scb-window');
-	var messages = document.getElementById('scb-messages');
-	var form = document.getElementById('scb-form');
-	var input = document.getElementById('scb-input');
-	var channelBar = document.getElementById('scb-channel-bar');
+	var widget = document.getElementById('mdscw-widget');
+	var toggle = document.getElementById('mdscw-toggle');
+	var closeBtn = document.getElementById('mdscw-close');
+	var windowEl = document.getElementById('mdscw-window');
+	var messages = document.getElementById('mdscw-messages');
+	var form = document.getElementById('mdscw-form');
+	var input = document.getElementById('mdscw-input');
+	var channelBar = document.getElementById('mdscw-channel-bar');
 
 	if (!widget || !toggle || !windowEl || !messages || !form || !input) {
 		return;
 	}
 
-	var SESSION_KEY = 'scb_session_id';
-	var CHANNEL_KEY = 'scb_current_channel';
-	var CHANNEL_SELECTED_KEY = 'scb_channel_selected';
-	var HUMAN_TAKEOVER_PREFIX = 'scb_human_takeover_';
+	var SESSION_KEY = 'mdscw_session_id';
+	var CHANNEL_KEY = 'mdscw_current_channel';
+	var CHANNEL_SELECTED_KEY = 'mdscw_channel_selected';
+	var HUMAN_TAKEOVER_PREFIX = 'mdscw_human_takeover_';
 
 	var current_channel = 'live_chat';
 	var isOpen = false;
@@ -79,23 +79,23 @@
 	}
 
 	function isLiveHumanChat() {
-		return !!(scbData.liveChat && current_channel === 'live_chat' && humanTakeover);
+		return !!(mdscwData.liveChat && current_channel === 'live_chat' && humanTakeover);
 	}
 
 	function getPollInterval() {
 		if (isLiveHumanChat()) {
-			return scbData.humanPollMs || 2000;
+			return mdscwData.humanPollMs || 2000;
 		}
-		return scbData.pollMs || 4000;
+		return mdscwData.pollMs || 4000;
 	}
 
 	function getEnabledChannels() {
 		var list = [];
-		if (!scbData.channels) {
+		if (!mdscwData.channels) {
 			return list;
 		}
-		Object.keys(scbData.channels).forEach(function (slug) {
-			if (scbData.channels[slug].enabled) {
+		Object.keys(mdscwData.channels).forEach(function (slug) {
+			if (mdscwData.channels[slug].enabled) {
 				list.push(slug);
 			}
 		});
@@ -110,7 +110,7 @@
 		if (!channelBar) {
 			return;
 		}
-		channelBar.querySelectorAll('.scb-channel-btn').forEach(function (btn) {
+		channelBar.querySelectorAll('.mdscw-channel-btn').forEach(function (btn) {
 			var active = btn.getAttribute('data-channel') === current_channel;
 			btn.classList.toggle('is-active', active);
 			btn.setAttribute('aria-pressed', active ? 'true' : 'false');
@@ -118,7 +118,7 @@
 	}
 
 	function setChannel(channel) {
-		if (!scbData.channels || !scbData.channels[channel] || !scbData.channels[channel].enabled) {
+		if (!mdscwData.channels || !mdscwData.channels[channel] || !mdscwData.channels[channel].enabled) {
 			channel = 'live_chat';
 		}
 		current_channel = channel;
@@ -130,19 +130,19 @@
 	function updateInputState() {
 		var external = isExternalChannel(current_channel);
 		input.disabled = false;
-		form.querySelector('.scb-send').disabled = false;
+		form.querySelector('.mdscw-send').disabled = false;
 		if (external) {
-			input.placeholder = scbData.placeholder || 'Ask a question…';
+			input.placeholder = mdscwData.placeholder || 'Ask a question…';
 		} else if (isLiveHumanChat()) {
-			input.placeholder = scbData.i18n.liveChatPlaceholder || scbData.placeholder || 'Type your message…';
+			input.placeholder = mdscwData.i18n.liveChatPlaceholder || mdscwData.placeholder || 'Type your message…';
 		} else {
-			input.placeholder = scbData.placeholder || '';
+			input.placeholder = mdscwData.placeholder || '';
 		}
 	}
 
 	function appendMessage(text, type) {
 		var el = document.createElement('div');
-		el.className = 'scb-message scb-message-' + type;
+		el.className = 'mdscw-message mdscw-message-' + type;
 		el.innerHTML = escapeHtml(text);
 		messages.appendChild(el);
 		messages.scrollTop = messages.scrollHeight;
@@ -151,16 +151,16 @@
 
 	function appendBotMessage(text, cta) {
 		var wrap = document.createElement('div');
-		wrap.className = 'scb-message-wrap';
+		wrap.className = 'mdscw-message-wrap';
 
 		var el = document.createElement('div');
-		el.className = 'scb-message scb-message-bot';
+		el.className = 'mdscw-message mdscw-message-bot';
 		el.innerHTML = escapeHtml(text);
 		wrap.appendChild(el);
 
 		if (cta && cta.url && cta.label) {
 			var btn = document.createElement('a');
-			btn.className = 'scb-channel-cta scb-channel-cta-' + current_channel;
+			btn.className = 'mdscw-channel-cta mdscw-channel-cta-' + current_channel;
 			btn.href = cta.url;
 			btn.target = '_blank';
 			btn.rel = 'noopener noreferrer';
@@ -173,19 +173,19 @@
 	}
 
 	function showTyping() {
-		if (document.getElementById('scb-typing-indicator')) {
+		if (document.getElementById('mdscw-typing-indicator')) {
 			return;
 		}
 		var el = document.createElement('div');
-		el.className = 'scb-message scb-message-bot scb-typing';
-		el.id = 'scb-typing-indicator';
+		el.className = 'mdscw-message mdscw-message-bot mdscw-typing';
+		el.id = 'mdscw-typing-indicator';
 		el.innerHTML = '<span></span><span></span><span></span>';
 		messages.appendChild(el);
 		messages.scrollTop = messages.scrollHeight;
 	}
 
 	function hideTyping() {
-		var el = document.getElementById('scb-typing-indicator');
+		var el = document.getElementById('mdscw-typing-indicator');
 		if (el) {
 			el.remove();
 		}
@@ -193,23 +193,23 @@
 
 	function renderChannelSelector() {
 		var wrap = document.createElement('div');
-		wrap.className = 'scb-channel-selector';
+		wrap.className = 'mdscw-channel-selector';
 
 		var prompt = document.createElement('p');
-		prompt.className = 'scb-channel-prompt';
-		prompt.textContent = scbData.channelPrompt || 'How would you like to connect with us today?';
+		prompt.className = 'mdscw-channel-prompt';
+		prompt.textContent = mdscwData.channelPrompt || 'How would you like to connect with us today?';
 		wrap.appendChild(prompt);
 
 		var pills = document.createElement('div');
-		pills.className = 'scb-channel-pills';
+		pills.className = 'mdscw-channel-pills';
 
 		getEnabledChannels().forEach(function (slug) {
-			var ch = scbData.channels[slug];
+			var ch = mdscwData.channels[slug];
 			var btn = document.createElement('button');
 			btn.type = 'button';
-			btn.className = 'scb-channel-pill';
+			btn.className = 'mdscw-channel-pill';
 			btn.setAttribute('data-channel', slug);
-			btn.innerHTML = '<span class="scb-pill-icon">' + escapeHtml(ch.icon) + '</span> ' + escapeHtml(ch.label);
+			btn.innerHTML = '<span class="mdscw-pill-icon">' + escapeHtml(ch.icon) + '</span> ' + escapeHtml(ch.label);
 			btn.addEventListener('click', function () {
 				setChannel(slug);
 				setStorage(CHANNEL_SELECTED_KEY, '1');
@@ -225,17 +225,17 @@
 	}
 
 	function renderFaqButtons() {
-		if (!scbData.faqs || !scbData.faqs.length) {
+		if (!mdscwData.faqs || !mdscwData.faqs.length) {
 			return;
 		}
 
 		var wrap = document.createElement('div');
-		wrap.className = 'scb-faq-buttons';
+		wrap.className = 'mdscw-faq-buttons';
 
-		scbData.faqs.forEach(function (faq) {
+		mdscwData.faqs.forEach(function (faq) {
 			var btn = document.createElement('button');
 			btn.type = 'button';
-			btn.className = 'scb-faq-btn';
+			btn.className = 'mdscw-faq-btn';
 			btn.textContent = faq.label;
 			btn.addEventListener('click', function () {
 				sendMessage(faq.message);
@@ -248,7 +248,7 @@
 	}
 
 	function showWelcomeFlow() {
-		appendMessage(scbData.welcome, 'bot');
+		appendMessage(mdscwData.welcome, 'bot');
 		renderFaqButtons();
 		hasInitialized = true;
 	}
@@ -259,7 +259,7 @@
 		var channelWasSelected = getStorage(CHANNEL_SELECTED_KEY) === '1';
 		var savedChannel = getStorage(CHANNEL_KEY);
 
-		if (savedChannel && scbData.channels[savedChannel] && scbData.channels[savedChannel].enabled) {
+		if (savedChannel && mdscwData.channels[savedChannel] && mdscwData.channels[savedChannel].enabled) {
 			current_channel = savedChannel;
 		}
 
@@ -279,7 +279,7 @@
 
 	function startPolling() {
 		stopPolling();
-		if (!scbData.liveChat || !sessionId || !isOpen || current_channel !== 'live_chat') {
+		if (!mdscwData.liveChat || !sessionId || !isOpen || current_channel !== 'live_chat') {
 			return;
 		}
 		pollTimer = setInterval(pollAdminReplies, getPollInterval());
@@ -298,12 +298,12 @@
 		}
 
 		var body = new FormData();
-		body.append('action', 'scb_poll_messages');
-		body.append('nonce', scbData.nonce);
+		body.append('action', 'mdscw_poll_messages');
+		body.append('nonce', mdscwData.nonce);
 		body.append('session_id', sessionId);
 		body.append('since_id', String(lastMessageId));
 
-		fetch(scbData.ajaxUrl, { method: 'POST', credentials: 'same-origin', body: body })
+		fetch(mdscwData.ajaxUrl, { method: 'POST', credentials: 'same-origin', body: body })
 			.then(function (res) { return res.json(); })
 			.then(function (data) {
 				if (!data.success || !data.data) {
@@ -328,10 +328,10 @@
 	function openChat() {
 		isOpen = true;
 		windowEl.hidden = false;
-		windowEl.classList.remove('scb-closed');
-		widget.classList.add('scb-open');
+		windowEl.classList.remove('mdscw-closed');
+		widget.classList.add('mdscw-open');
 		toggle.setAttribute('aria-expanded', 'true');
-		toggle.setAttribute('aria-label', scbData.i18n.closeChat || 'Close chat');
+		toggle.setAttribute('aria-label', mdscwData.i18n.closeChat || 'Close chat');
 
 		if (!hasInitialized) {
 			initializeChatContent();
@@ -339,7 +339,7 @@
 
 		input.focus();
 		startPolling();
-		if (sessionId && scbData.liveChat && current_channel === 'live_chat') {
+		if (sessionId && mdscwData.liveChat && current_channel === 'live_chat') {
 			pollAdminReplies();
 		}
 	}
@@ -351,10 +351,10 @@
 		}
 		isOpen = false;
 		windowEl.hidden = true;
-		windowEl.classList.add('scb-closed');
-		widget.classList.remove('scb-open');
+		windowEl.classList.add('mdscw-closed');
+		widget.classList.remove('mdscw-open');
 		toggle.setAttribute('aria-expanded', 'false');
-		toggle.setAttribute('aria-label', scbData.i18n.openChat || 'Open chat');
+		toggle.setAttribute('aria-label', mdscwData.i18n.openChat || 'Open chat');
 		stopPolling();
 	}
 
@@ -367,7 +367,7 @@
 	}
 
 	function sendMessage(text) {
-		var sendBtn = form.querySelector('.scb-send');
+		var sendBtn = form.querySelector('.mdscw-send');
 		var liveHuman = isLiveHumanChat();
 
 		appendMessage(text, 'user');
@@ -380,15 +380,15 @@
 		}
 
 		var body = new FormData();
-		body.append('action', 'scb_send_message');
-		body.append('nonce', scbData.nonce);
+		body.append('action', 'mdscw_send_message');
+		body.append('nonce', mdscwData.nonce);
 		body.append('message', text);
 		body.append('current_channel', current_channel);
 		if (sessionId) {
 			body.append('session_id', sessionId);
 		}
 
-		fetch(scbData.ajaxUrl, { method: 'POST', credentials: 'same-origin', body: body })
+		fetch(mdscwData.ajaxUrl, { method: 'POST', credentials: 'same-origin', body: body })
 			.then(function (res) { return res.json(); })
 			.then(function (data) {
 				hideTyping();
@@ -414,14 +414,14 @@
 						startPolling();
 					}
 				} else if (!liveHuman) {
-					var errMsg = (data.data && data.data.message) ? data.data.message : (scbData.i18n.errorGeneric || 'Something went wrong.');
+					var errMsg = (data.data && data.data.message) ? data.data.message : (mdscwData.i18n.errorGeneric || 'Something went wrong.');
 					appendMessage(errMsg, 'bot');
 				}
 			})
 			.catch(function () {
 				hideTyping();
 				if (!liveHuman) {
-					appendMessage(scbData.i18n.errorNetwork || 'Unable to connect.', 'bot');
+					appendMessage(mdscwData.i18n.errorNetwork || 'Unable to connect.', 'bot');
 				}
 			})
 			.finally(function () {
@@ -438,7 +438,7 @@
 	}
 
 	if (channelBar) {
-		channelBar.querySelectorAll('.scb-channel-btn').forEach(function (btn) {
+		channelBar.querySelectorAll('.mdscw-channel-btn').forEach(function (btn) {
 			btn.addEventListener('click', function () {
 				var channel = btn.getAttribute('data-channel');
 				setChannel(channel);
@@ -457,7 +457,7 @@
 
 	/* Fallback: event delegation in case theme blocks direct binding */
 	widget.addEventListener('click', function (e) {
-		if (e.target.closest('#scb-close')) {
+		if (e.target.closest('#mdscw-close')) {
 			closeChat(e);
 		}
 	});

@@ -2,47 +2,47 @@
 /**
  * Rule-based bot responses and AJAX handling (free tier).
  *
- * @package Smart_Chat_Bot
+ * @package Siddik_Chat_Widget
  */
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Class SCB_Ajax_Handler
+ * Class MDSCW_Ajax_Handler
  */
-class SCB_Ajax_Handler {
+class MDSCW_Ajax_Handler {
 
 	/**
 	 * Constructor.
 	 */
 	public function __construct() {
-		add_action( 'wp_ajax_scb_send_message', array( $this, 'handle_message' ) );
-		add_action( 'wp_ajax_nopriv_scb_send_message', array( $this, 'handle_message' ) );
+		add_action( 'wp_ajax_mdscw_send_message', array( $this, 'handle_message' ) );
+		add_action( 'wp_ajax_nopriv_mdscw_send_message', array( $this, 'handle_message' ) );
 	}
 
 	/**
 	 * Handle incoming chat message via AJAX.
 	 */
 	public function handle_message() {
-		check_ajax_referer( 'scb_chat_nonce', 'nonce' );
+		check_ajax_referer( 'mdscw_chat_nonce', 'nonce' );
 
 		$message    = isset( $_POST['message'] ) ? sanitize_text_field( wp_unslash( $_POST['message'] ) ) : '';
-		$session_id = isset( $_POST['session_id'] ) ? scb_sanitize_session_id( wp_unslash( $_POST['session_id'] ) ) : '';
-		$channel    = isset( $_POST['current_channel'] ) ? scb_sanitize_channel( wp_unslash( $_POST['current_channel'] ) ) : 'live_chat';
+		$session_id = isset( $_POST['session_id'] ) ? mdscw_sanitize_session_id( wp_unslash( $_POST['session_id'] ) ) : '';
+		$channel    = isset( $_POST['current_channel'] ) ? mdscw_sanitize_channel( wp_unslash( $_POST['current_channel'] ) ) : 'live_chat';
 
 		if ( '' === $message ) {
 			wp_send_json_error(
 				array(
-					'message' => __( 'Please enter a message.', 'smart-chat-bot' ),
+					'message' => __( 'Please enter a message.', 'siddik-chat-widget' ),
 				),
 				400
 			);
 		}
 
-		$settings       = SCB_Admin_Settings::get_settings();
-		$is_external    = scb_is_external_channel( $channel );
-		$human_takeover = ! $is_external && '' !== $session_id && scb_session_is_human_takeover( $session_id );
-		$rule_response  = $human_takeover ? null : scb_match_rule( $message, $settings['rules'] );
+		$settings       = MDSCW_Admin_Settings::get_settings();
+		$is_external    = mdscw_is_external_channel( $channel );
+		$human_takeover = ! $is_external && '' !== $session_id && mdscw_session_is_human_takeover( $session_id );
+		$rule_response  = $human_takeover ? null : mdscw_match_rule( $message, $settings['rules'] );
 
 		$payload = array(
 			'message'        => $message,
@@ -63,7 +63,7 @@ class SCB_Ajax_Handler {
 		 *
 		 * @param array $payload Message context.
 		 */
-		$payload = apply_filters( 'scb_message_before_reply', $payload );
+		$payload = apply_filters( 'mdscw_message_before_reply', $payload );
 
 		if ( ! empty( $payload['human_takeover'] ) ) {
 			$payload['response'] = '';
@@ -78,7 +78,7 @@ class SCB_Ajax_Handler {
 		 *
 		 * @param array $payload Message context.
 		 */
-		$payload = apply_filters( 'scb_message_after_reply', $payload );
+		$payload = apply_filters( 'mdscw_message_after_reply', $payload );
 
 		$response_data = array(
 			'reply'          => $payload['response'],
@@ -89,7 +89,7 @@ class SCB_Ajax_Handler {
 		);
 
 		if ( $is_external ) {
-			$cta = scb_get_channel_cta( $channel, $settings );
+			$cta = mdscw_get_channel_cta( $channel, $settings );
 			if ( $cta ) {
 				$response_data['cta'] = $cta;
 			}

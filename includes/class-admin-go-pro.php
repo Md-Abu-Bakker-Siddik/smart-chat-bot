@@ -2,20 +2,20 @@
 /**
  * Go PRO / pricing admin page for the free plugin.
  *
- * @package Smart_Chat_Bot
+ * @package Siddik_Chat_Widget
  */
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Class SCB_Admin_Go_Pro
+ * Class MDSCW_Admin_Go_Pro
  */
-class SCB_Admin_Go_Pro {
+class MDSCW_Admin_Go_Pro {
 
 	/**
 	 * Page slug.
 	 */
-	const PAGE_SLUG = 'smart-chat-bot-go-pro';
+	const PAGE_SLUG = 'siddik-chat-widget-go-pro';
 
 	/**
 	 * Constructor.
@@ -29,14 +29,14 @@ class SCB_Admin_Go_Pro {
 	 * Register Go PRO submenu when Pro is not active.
 	 */
 	public function register_menu() {
-		if ( scb_is_pro_active() ) {
+		if ( mdscw_is_pro_active() ) {
 			return;
 		}
 
 		add_submenu_page(
-			SCB_Admin_Settings::MENU_SLUG,
-			__( 'Go PRO', 'smart-chat-bot' ),
-			__( 'Go PRO', 'smart-chat-bot' ),
+			MDSCW_Admin_Settings::MENU_SLUG,
+			__( 'Go PRO', 'siddik-chat-widget' ),
+			__( 'Go PRO', 'siddik-chat-widget' ),
 			'manage_options',
 			self::PAGE_SLUG,
 			array( $this, 'render_page' )
@@ -49,15 +49,15 @@ class SCB_Admin_Go_Pro {
 	 * @param string $hook Current admin page hook.
 	 */
 	public function enqueue_assets( $hook ) {
-		if ( 'smart-chat-bot_page_' . self::PAGE_SLUG !== $hook ) {
+		if ( 'siddik-chat-widget_page_' . self::PAGE_SLUG !== $hook ) {
 			return;
 		}
 
 		wp_enqueue_style(
-			'scb-go-pro',
-			SCB_PLUGIN_URL . 'admin/css/go-pro.css',
+			'mdscw-go-pro',
+			MDSCW_PLUGIN_URL . 'admin/css/go-pro.css',
 			array(),
-			SCB_VERSION
+			MDSCW_VERSION
 		);
 	}
 
@@ -69,62 +69,62 @@ class SCB_Admin_Go_Pro {
 	private function get_features() {
 		return array(
 			array(
-				'feature' => __( 'Floating chat widget', 'smart-chat-bot' ),
+				'feature' => __( 'Floating chat widget', 'siddik-chat-widget' ),
 				'free'    => true,
 				'pro'     => true,
 			),
 			array(
-				'feature' => __( 'Keyword response rules', 'smart-chat-bot' ),
+				'feature' => __( 'Keyword response rules', 'siddik-chat-widget' ),
 				'free'    => true,
 				'pro'     => true,
 			),
 			array(
-				'feature' => __( 'Omnichannel routing (WhatsApp, Messenger, Telegram)', 'smart-chat-bot' ),
+				'feature' => __( 'Omnichannel routing (WhatsApp, Messenger, Telegram)', 'siddik-chat-widget' ),
 				'free'    => true,
 				'pro'     => true,
 			),
 			array(
-				'feature' => __( 'Custom colors & position', 'smart-chat-bot' ),
+				'feature' => __( 'Custom colors & position', 'siddik-chat-widget' ),
 				'free'    => true,
 				'pro'     => true,
 			),
 			array(
-				'feature' => __( 'Fallback message', 'smart-chat-bot' ),
+				'feature' => __( 'Fallback message', 'siddik-chat-widget' ),
 				'free'    => true,
 				'pro'     => true,
 			),
 			array(
-				'feature' => __( 'Live admin inbox', 'smart-chat-bot' ),
+				'feature' => __( 'Live admin inbox', 'siddik-chat-widget' ),
 				'free'    => false,
 				'pro'     => true,
 			),
 			array(
-				'feature' => __( 'Message history & storage', 'smart-chat-bot' ),
+				'feature' => __( 'Message history & storage', 'siddik-chat-widget' ),
 				'free'    => false,
 				'pro'     => true,
 			),
 			array(
-				'feature' => __( 'Real-time admin replies', 'smart-chat-bot' ),
+				'feature' => __( 'Real-time admin replies', 'siddik-chat-widget' ),
 				'free'    => false,
 				'pro'     => true,
 			),
 			array(
-				'feature' => __( 'OpenAI-powered responses', 'smart-chat-bot' ),
+				'feature' => __( 'OpenAI-powered responses', 'siddik-chat-widget' ),
 				'free'    => false,
 				'pro'     => true,
 			),
 			array(
-				'feature' => __( 'Custom AI system prompt', 'smart-chat-bot' ),
+				'feature' => __( 'Custom AI system prompt', 'siddik-chat-widget' ),
 				'free'    => false,
 				'pro'     => true,
 			),
 			array(
-				'feature' => __( 'Unread message badges', 'smart-chat-bot' ),
+				'feature' => __( 'Unread message badges', 'siddik-chat-widget' ),
 				'free'    => false,
 				'pro'     => true,
 			),
 			array(
-				'feature' => __( 'Priority support', 'smart-chat-bot' ),
+				'feature' => __( 'Priority support', 'siddik-chat-widget' ),
 				'free'    => false,
 				'pro'     => true,
 			),
@@ -140,116 +140,116 @@ class SCB_Admin_Go_Pro {
 		}
 
 		$features     = $this->get_features();
-		$early_access = scb_is_pro_early_access();
-		$pro_url      = $early_access ? scb_get_pro_download_url() : scb_get_pro_url();
+		$early_access = mdscw_is_pro_early_access();
+		$pro_url      = $early_access ? mdscw_get_pro_download_url() : mdscw_get_pro_url();
 		?>
-		<div class="wrap scb-go-pro-wrap">
-			<div class="scb-go-pro-hero">
-				<span class="scb-go-pro-badge">
-					<?php echo $early_access ? esc_html__( 'Early Access', 'smart-chat-bot' ) : esc_html__( 'Upgrade', 'smart-chat-bot' ); ?>
+		<div class="wrap mdscw-go-pro-wrap">
+			<div class="mdscw-go-pro-hero">
+				<span class="mdscw-go-pro-badge">
+					<?php echo $early_access ? esc_html__( 'Early Access', 'siddik-chat-widget' ) : esc_html__( 'Upgrade', 'siddik-chat-widget' ); ?>
 				</span>
 				<h1>
 					<?php
 					echo $early_access
-						? esc_html__( 'Get Smart Chat Bot PRO — Free Early Access', 'smart-chat-bot' )
-						: esc_html__( 'Unlock Smart Chat Bot PRO', 'smart-chat-bot' );
+						? esc_html__( 'Get Siddik Chat Widget PRO — Free Early Access', 'siddik-chat-widget' )
+						: esc_html__( 'Unlock Siddik Chat Widget PRO', 'siddik-chat-widget' );
 					?>
 				</h1>
-				<p class="scb-go-pro-subtitle">
+				<p class="mdscw-go-pro-subtitle">
 					<?php
 					echo $early_access
-						? esc_html__( 'Download the PRO add-on free while we grow. Install it alongside this plugin for live inbox, message history, and AI replies.', 'smart-chat-bot' )
-						: esc_html__( 'Supercharge your chat widget with live messaging, conversation history, and AI-powered replies.', 'smart-chat-bot' );
+						? esc_html__( 'Download the PRO add-on free while we grow. Install it alongside this plugin for live inbox, message history, and AI replies.', 'siddik-chat-widget' )
+						: esc_html__( 'Supercharge your chat widget with live messaging, conversation history, and AI-powered replies.', 'siddik-chat-widget' );
 					?>
 				</p>
-				<a href="<?php echo esc_url( $pro_url ); ?>" class="button button-primary button-hero scb-go-pro-cta" target="_blank" rel="noopener noreferrer">
+				<a href="<?php echo esc_url( $pro_url ); ?>" class="button button-primary button-hero mdscw-go-pro-cta" target="_blank" rel="noopener noreferrer">
 					<?php
 					echo $early_access
-						? esc_html__( 'Download PRO Free →', 'smart-chat-bot' )
-						: esc_html__( 'Get Smart Chat Bot PRO →', 'smart-chat-bot' );
+						? esc_html__( 'Download PRO Free →', 'siddik-chat-widget' )
+						: esc_html__( 'Get Siddik Chat Widget PRO →', 'siddik-chat-widget' );
 					?>
 				</a>
 				<?php if ( $early_access ) : ?>
-					<p class="scb-go-pro-fine-print">
-						<?php esc_html_e( 'Early adopters keep PRO access when paid pricing launches.', 'smart-chat-bot' ); ?>
+					<p class="mdscw-go-pro-fine-print">
+						<?php esc_html_e( 'Early adopters keep PRO access when paid pricing launches.', 'siddik-chat-widget' ); ?>
 					</p>
 				<?php endif; ?>
 			</div>
 
-			<div class="scb-go-pro-grid">
-				<div class="scb-go-pro-card scb-go-pro-card-free">
-					<h2><?php esc_html_e( 'Free', 'smart-chat-bot' ); ?></h2>
-					<p class="scb-go-pro-price"><?php esc_html_e( '$0', 'smart-chat-bot' ); ?></p>
-					<p class="scb-go-pro-desc"><?php esc_html_e( 'Perfect for simple FAQ bots and getting started.', 'smart-chat-bot' ); ?></p>
+			<div class="mdscw-go-pro-grid">
+				<div class="mdscw-go-pro-card mdscw-go-pro-card-free">
+					<h2><?php esc_html_e( 'Free', 'siddik-chat-widget' ); ?></h2>
+					<p class="mdscw-go-pro-price"><?php esc_html_e( '$0', 'siddik-chat-widget' ); ?></p>
+					<p class="mdscw-go-pro-desc"><?php esc_html_e( 'Perfect for simple FAQ bots and getting started.', 'siddik-chat-widget' ); ?></p>
 				</div>
-				<div class="scb-go-pro-card scb-go-pro-card-pro">
-					<h2><?php esc_html_e( 'PRO', 'smart-chat-bot' ); ?></h2>
-					<p class="scb-go-pro-price">
+				<div class="mdscw-go-pro-card mdscw-go-pro-card-pro">
+					<h2><?php esc_html_e( 'PRO', 'siddik-chat-widget' ); ?></h2>
+					<p class="mdscw-go-pro-price">
 						<?php
 						echo $early_access
-							? esc_html__( 'Free', 'smart-chat-bot' )
-							: esc_html__( 'Premium', 'smart-chat-bot' );
+							? esc_html__( 'Free', 'siddik-chat-widget' )
+							: esc_html__( 'Premium', 'siddik-chat-widget' );
 						?>
 					</p>
-					<p class="scb-go-pro-desc">
+					<p class="mdscw-go-pro-desc">
 						<?php
 						echo $early_access
-							? esc_html__( 'Full PRO features at no cost during early access. Limited-time offer.', 'smart-chat-bot' )
-							: esc_html__( 'For businesses that need live support and AI automation.', 'smart-chat-bot' );
+							? esc_html__( 'Full PRO features at no cost during early access. Limited-time offer.', 'siddik-chat-widget' )
+							: esc_html__( 'For businesses that need live support and AI automation.', 'siddik-chat-widget' );
 						?>
 					</p>
-					<a href="<?php echo esc_url( $pro_url ); ?>" class="button button-primary scb-go-pro-card-btn" target="_blank" rel="noopener noreferrer">
+					<a href="<?php echo esc_url( $pro_url ); ?>" class="button button-primary mdscw-go-pro-card-btn" target="_blank" rel="noopener noreferrer">
 						<?php
 						echo $early_access
-							? esc_html__( 'Download PRO Free', 'smart-chat-bot' )
-							: esc_html__( 'View Pricing', 'smart-chat-bot' );
+							? esc_html__( 'Download PRO Free', 'siddik-chat-widget' )
+							: esc_html__( 'View Pricing', 'siddik-chat-widget' );
 						?>
 					</a>
 				</div>
 			</div>
 
-			<div class="scb-go-pro-table-wrap">
-				<h2><?php esc_html_e( 'Feature Comparison', 'smart-chat-bot' ); ?></h2>
-				<table class="scb-go-pro-table">
+			<div class="mdscw-go-pro-table-wrap">
+				<h2><?php esc_html_e( 'Feature Comparison', 'siddik-chat-widget' ); ?></h2>
+				<table class="mdscw-go-pro-table">
 					<thead>
 						<tr>
-							<th scope="col"><?php esc_html_e( 'Feature', 'smart-chat-bot' ); ?></th>
-							<th scope="col"><?php esc_html_e( 'Free', 'smart-chat-bot' ); ?></th>
-							<th scope="col"><?php esc_html_e( 'PRO', 'smart-chat-bot' ); ?></th>
+							<th scope="col"><?php esc_html_e( 'Feature', 'siddik-chat-widget' ); ?></th>
+							<th scope="col"><?php esc_html_e( 'Free', 'siddik-chat-widget' ); ?></th>
+							<th scope="col"><?php esc_html_e( 'PRO', 'siddik-chat-widget' ); ?></th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php foreach ( $features as $row ) : ?>
 							<tr>
 								<td><?php echo esc_html( $row['feature'] ); ?></td>
-								<td><?php echo $row['free'] ? '<span class="scb-check" aria-label="' . esc_attr__( 'Included', 'smart-chat-bot' ) . '">✓</span>' : '<span class="scb-dash" aria-hidden="true">—</span>'; ?></td>
-								<td><?php echo $row['pro'] ? '<span class="scb-check scb-check-pro" aria-label="' . esc_attr__( 'Included', 'smart-chat-bot' ) . '">✓</span>' : '<span class="scb-dash" aria-hidden="true">—</span>'; ?></td>
+								<td><?php echo $row['free'] ? '<span class="mdscw-check" aria-label="' . esc_attr__( 'Included', 'siddik-chat-widget' ) . '">✓</span>' : '<span class="mdscw-dash" aria-hidden="true">—</span>'; ?></td>
+								<td><?php echo $row['pro'] ? '<span class="mdscw-check mdscw-check-pro" aria-label="' . esc_attr__( 'Included', 'siddik-chat-widget' ) . '">✓</span>' : '<span class="mdscw-dash" aria-hidden="true">—</span>'; ?></td>
 							</tr>
 						<?php endforeach; ?>
 					</tbody>
 				</table>
 			</div>
 
-			<div class="scb-go-pro-footer">
+			<div class="mdscw-go-pro-footer">
 				<h3>
 					<?php
 					echo $early_access
-						? esc_html__( 'Ready to unlock PRO?', 'smart-chat-bot' )
-						: esc_html__( 'Ready to upgrade?', 'smart-chat-bot' );
+						? esc_html__( 'Ready to unlock PRO?', 'siddik-chat-widget' )
+						: esc_html__( 'Ready to upgrade?', 'siddik-chat-widget' );
 					?>
 				</h3>
 				<p>
 					<?php
 					echo $early_access
-						? esc_html__( 'Download and install Smart Chat Bot PRO alongside this plugin to instantly unlock all premium features.', 'smart-chat-bot' )
-						: esc_html__( 'Install Smart Chat Bot PRO alongside this plugin to instantly unlock all premium features.', 'smart-chat-bot' );
+						? esc_html__( 'Download and install Siddik Chat Widget PRO alongside this plugin to instantly unlock all premium features.', 'siddik-chat-widget' )
+						: esc_html__( 'Install Siddik Chat Widget PRO alongside this plugin to instantly unlock all premium features.', 'siddik-chat-widget' );
 					?>
 				</p>
 				<a href="<?php echo esc_url( $pro_url ); ?>" class="button button-primary button-hero" target="_blank" rel="noopener noreferrer">
 					<?php
 					echo $early_access
-						? esc_html__( 'Download PRO Free', 'smart-chat-bot' )
-						: esc_html__( 'Get PRO Now', 'smart-chat-bot' );
+						? esc_html__( 'Download PRO Free', 'siddik-chat-widget' )
+						: esc_html__( 'Get PRO Now', 'siddik-chat-widget' );
 					?>
 				</a>
 			</div>

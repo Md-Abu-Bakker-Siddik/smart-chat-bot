@@ -1,4 +1,4 @@
-Smart Chat Bot
+Siddik Chat Widget
 Copyright (C) 2026 Md Abu Bakker Siddik
 
 This program is free software; you can redistribute it and/or modify

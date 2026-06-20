@@ -1,10 +1,10 @@
 <?php
 /**
- * Uninstall Smart Chat Bot (free).
+ * Uninstall Siddik Chat Widget (free).
  *
- * @package Smart_Chat_Bot
+ * @package Siddik_Chat_Widget
  */
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 
-delete_option( 'scb_settings' );
+delete_option( 'mdscw_settings' );

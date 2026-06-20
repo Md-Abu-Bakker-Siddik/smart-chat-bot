@@ -2,5 +2,5 @@
 /**
  * Silence is golden.
  *
- * @package Smart_Chat_Bot
+ * @package Siddik_Chat_Widget
  */

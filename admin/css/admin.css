@@ -1,23 +1,23 @@
-.scb-admin-wrap {
+.mdscw-admin-wrap {
 	max-width: 860px;
 }
 
-.scb-pro-notice {
+.mdscw-pro-notice {
 	margin-top: 16px;
 }
 
-.scb-admin-wrap .description {
+.mdscw-admin-wrap .description {
 	margin-bottom: 1em;
 }
 
-#scb-rules-container {
+#mdscw-rules-container {
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
 	margin: 1em 0;
 }
 
-.scb-rule-row {
+.mdscw-rule-row {
 	display: flex;
 	align-items: flex-start;
 	gap: 12px;
@@ -27,30 +27,30 @@
 	border-radius: 4px;
 }
 
-.scb-rule-fields {
+.mdscw-rule-fields {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
 }
 
-.scb-rule-fields label {
+.mdscw-rule-fields label {
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
 }
 
-.scb-rule-fields .scb-label {
+.mdscw-rule-fields .mdscw-label {
 	font-weight: 600;
 	font-size: 13px;
 }
 
-.scb-rule-fields input[type="text"],
-.scb-rule-fields textarea {
+.mdscw-rule-fields input[type="text"],
+.mdscw-rule-fields textarea {
 	width: 100%;
 }
 
-.scb-remove-rule {
+.mdscw-remove-rule {
 	flex-shrink: 0;
 	min-width: 36px;
 	height: 36px;
@@ -61,7 +61,7 @@
 	border-color: #b32d2e;
 }
 
-.scb-remove-rule:hover {
+.mdscw-remove-rule:hover {
 	color: #fff;
 	background: #b32d2e;
 }

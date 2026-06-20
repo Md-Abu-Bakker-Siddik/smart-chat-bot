@@ -2,47 +2,47 @@
 /**
  * Shared helper functions and extension API.
  *
- * @package Smart_Chat_Bot
+ * @package Siddik_Chat_Widget
  */
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Whether the Smart Chat Bot PRO add-on plugin is installed and active.
+ * Whether the Siddik Chat Widget PRO add-on plugin is installed and active.
  *
  * @return bool
  */
-function scb_is_pro_plugin_installed() {
-	return defined( 'SCB_PRO_VERSION' );
+function mdscw_is_pro_plugin_installed() {
+	return defined( 'MDSCWPRO_VERSION' );
 }
 
 /**
- * Check whether Smart Chat Bot Pro features are unlocked.
+ * Check whether Siddik Chat Widget Pro features are unlocked.
  *
  * Pro features load when the separate PRO add-on plugin is active.
- * Extensions may override via the scb_is_pro_active filter.
+ * Extensions may override via the mdscw_is_pro_active filter.
  *
  * @return bool
  */
-function scb_is_pro_active() {
-	return (bool) apply_filters( 'scb_is_pro_active', scb_is_pro_plugin_installed() );
+function mdscw_is_pro_active() {
+	return (bool) apply_filters( 'mdscw_is_pro_active', mdscw_is_pro_plugin_installed() );
 }
 
 /**
  * Whether a live human agent has taken over the conversation.
  *
- * Pro add-ons hook scb_session_human_takeover to provide session state.
+ * Pro add-ons hook mdscw_session_human_takeover to provide session state.
  *
  * @param string $session_id Chat session ID.
  * @return bool
  */
-function scb_session_is_human_takeover( $session_id ) {
-	$session_id = scb_sanitize_session_id( $session_id );
+function mdscw_session_is_human_takeover( $session_id ) {
+	$session_id = mdscw_sanitize_session_id( $session_id );
 	if ( '' === $session_id ) {
 		return false;
 	}
 
-	return (bool) apply_filters( 'scb_session_human_takeover', false, $session_id );
+	return (bool) apply_filters( 'mdscw_session_human_takeover', false, $session_id );
 }
 
 /**
@@ -50,20 +50,20 @@ function scb_session_is_human_takeover( $session_id ) {
  *
  * @return string
  */
-function scb_get_pro_url() {
-	return apply_filters( 'scb_pro_landing_url', 'https://profiles.wordpress.org/mdabubakkersiddik1/' );
+function mdscw_get_pro_url() {
+	return apply_filters( 'mdscw_pro_landing_url', 'https://profiles.wordpress.org/mdabubakkersiddik/' );
 }
 
 /**
  * Whether the PRO add-on is offered as a free early-access download.
  *
  * Used only for Go PRO page copy in the free plugin. License logic lives in the PRO add-on.
- * Extensions may disable when moving to paid pricing: add_filter( 'scb_pro_early_access_enabled', '__return_false' );
+ * Extensions may disable when moving to paid pricing: add_filter( 'mdscw_pro_early_access_enabled', '__return_false' );
  *
  * @return bool
  */
-function scb_is_pro_early_access() {
-	return (bool) apply_filters( 'scb_pro_early_access_enabled', true );
+function mdscw_is_pro_early_access() {
+	return (bool) apply_filters( 'mdscw_pro_early_access_enabled', true );
 }
 
 /**
@@ -71,8 +71,8 @@ function scb_is_pro_early_access() {
  *
  * @return string
  */
-function scb_get_pro_download_url() {
-	return apply_filters( 'scb_pro_download_url', scb_get_pro_url() );
+function mdscw_get_pro_download_url() {
+	return apply_filters( 'mdscw_pro_download_url', mdscw_get_pro_url() );
 }
 
 /**
@@ -81,7 +81,7 @@ function scb_get_pro_download_url() {
  * @param string $session_id Raw session ID.
  * @return string
  */
-function scb_sanitize_session_id( $session_id ) {
+function mdscw_sanitize_session_id( $session_id ) {
 	$session_id = sanitize_text_field( $session_id );
 	$session_id = preg_replace( '/[^a-zA-Z0-9\-_]/', '', $session_id );
 	return substr( $session_id, 0, 64 );
@@ -92,7 +92,7 @@ function scb_sanitize_session_id( $session_id ) {
  *
  * @return string
  */
-function scb_generate_session_id() {
+function mdscw_generate_session_id() {
 	if ( function_exists( 'wp_generate_uuid4' ) ) {
 		return wp_generate_uuid4();
 	}
@@ -107,7 +107,7 @@ function scb_generate_session_id() {
  * @param array  $rules   Rule list.
  * @return string|null
  */
-function scb_match_rule( $message, $rules ) {
+function mdscw_match_rule( $message, $rules ) {
 	$message_lower = strtolower( $message );
 
 	if ( ! is_array( $rules ) ) {
@@ -133,7 +133,7 @@ function scb_match_rule( $message, $rules ) {
  *
  * @return array
  */
-function scb_get_allowed_channels() {
+function mdscw_get_allowed_channels() {
 	return array( 'live_chat', 'whatsapp', 'messenger', 'telegram' );
 }
 
@@ -143,9 +143,9 @@ function scb_get_allowed_channels() {
  * @param string $channel Raw channel.
  * @return string
  */
-function scb_sanitize_channel( $channel ) {
+function mdscw_sanitize_channel( $channel ) {
 	$channel = sanitize_key( $channel );
-	return in_array( $channel, scb_get_allowed_channels(), true ) ? $channel : 'live_chat';
+	return in_array( $channel, mdscw_get_allowed_channels(), true ) ? $channel : 'live_chat';
 }
 
 /**
@@ -154,7 +154,7 @@ function scb_sanitize_channel( $channel ) {
  * @param string $channel Channel slug.
  * @return bool
  */
-function scb_is_external_channel( $channel ) {
+function mdscw_is_external_channel( $channel ) {
 	return in_array( $channel, array( 'whatsapp', 'messenger', 'telegram' ), true );
 }
 
@@ -164,7 +164,7 @@ function scb_is_external_channel( $channel ) {
  * @param array $rules Response rules.
  * @return array
  */
-function scb_get_faq_items( $rules ) {
+function mdscw_get_faq_items( $rules ) {
 	$faqs = array();
 
 	if ( ! is_array( $rules ) ) {
@@ -199,8 +199,8 @@ function scb_get_faq_items( $rules ) {
  * @param array  $settings Plugin settings.
  * @return array|null
  */
-function scb_get_channel_cta( $channel, $settings ) {
-	if ( ! scb_is_external_channel( $channel ) ) {
+function mdscw_get_channel_cta( $channel, $settings ) {
+	if ( ! mdscw_is_external_channel( $channel ) ) {
 		return null;
 	}
 
@@ -213,13 +213,13 @@ function scb_get_channel_cta( $channel, $settings ) {
 	}
 
 	$labels = array(
-		'whatsapp'  => __( 'Open in WhatsApp', 'smart-chat-bot' ),
-		'messenger' => __( 'Launch Messenger Chat', 'smart-chat-bot' ),
-		'telegram'  => __( 'Launch Telegram Chat', 'smart-chat-bot' ),
+		'whatsapp'  => __( 'Open in WhatsApp', 'siddik-chat-widget' ),
+		'messenger' => __( 'Launch Messenger Chat', 'siddik-chat-widget' ),
+		'telegram'  => __( 'Launch Telegram Chat', 'siddik-chat-widget' ),
 	);
 
 	return array(
-		'label' => $labels[ $channel ] ?? __( 'Continue Chat', 'smart-chat-bot' ),
+		'label' => $labels[ $channel ] ?? __( 'Continue Chat', 'siddik-chat-widget' ),
 		'url'   => $url,
 	);
 }
@@ -230,32 +230,32 @@ function scb_get_channel_cta( $channel, $settings ) {
  * @param array $settings Plugin settings.
  * @return array
  */
-function scb_get_frontend_channels( $settings ) {
+function mdscw_get_frontend_channels( $settings ) {
 	$channels = array(
 		'live_chat' => array(
 			'enabled' => true,
-			'label'   => __( 'Live Chat', 'smart-chat-bot' ),
+			'label'   => __( 'Live Chat', 'siddik-chat-widget' ),
 			'icon'    => '💬',
 		),
 		'whatsapp'  => array(
 			'enabled' => ! empty( $settings['whatsapp_enabled'] ) && ! empty( $settings['whatsapp_url'] ),
-			'label'   => __( 'WhatsApp', 'smart-chat-bot' ),
+			'label'   => __( 'WhatsApp', 'siddik-chat-widget' ),
 			'icon'    => '🟢',
 			'url'     => ! empty( $settings['whatsapp_url'] ) ? esc_url( $settings['whatsapp_url'] ) : '',
 		),
 		'messenger' => array(
 			'enabled' => ! empty( $settings['messenger_enabled'] ) && ! empty( $settings['messenger_url'] ),
-			'label'   => __( 'Messenger', 'smart-chat-bot' ),
+			'label'   => __( 'Messenger', 'siddik-chat-widget' ),
 			'icon'    => '🔵',
 			'url'     => ! empty( $settings['messenger_url'] ) ? esc_url( $settings['messenger_url'] ) : '',
 		),
 		'telegram'  => array(
 			'enabled' => ! empty( $settings['telegram_enabled'] ) && ! empty( $settings['telegram_url'] ),
-			'label'   => __( 'Telegram', 'smart-chat-bot' ),
+			'label'   => __( 'Telegram', 'siddik-chat-widget' ),
 			'icon'    => '✈️',
 			'url'     => ! empty( $settings['telegram_url'] ) ? esc_url( $settings['telegram_url'] ) : '',
 		),
 	);
 
-	return apply_filters( 'scb_frontend_channels', $channels, $settings );
+	return apply_filters( 'mdscw_frontend_channels', $channels, $settings );
 }

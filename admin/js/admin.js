@@ -1,16 +1,16 @@
 (function () {
 	'use strict';
 
-	var container = document.getElementById('scb-rules-container');
-	var addBtn = document.getElementById('scb-add-rule');
-	var template = document.getElementById('scb-rule-template');
+	var container = document.getElementById('mdscw-rules-container');
+	var addBtn = document.getElementById('mdscw-add-rule');
+	var template = document.getElementById('mdscw-rule-template');
 
 	if (!container || !addBtn || !template) {
 		return;
 	}
 
 	function getNextIndex() {
-		var rows = container.querySelectorAll('.scb-rule-row');
+		var rows = container.querySelectorAll('.mdscw-rule-row');
 		var max = -1;
 
 		rows.forEach(function (row) {
@@ -24,19 +24,19 @@
 	}
 
 	function bindRemoveButtons() {
-		container.querySelectorAll('.scb-remove-rule').forEach(function (btn) {
+		container.querySelectorAll('.mdscw-remove-rule').forEach(function (btn) {
 			btn.removeEventListener('click', handleRemove);
 			btn.addEventListener('click', handleRemove);
 		});
 	}
 
 	function handleRemove(e) {
-		var row = e.currentTarget.closest('.scb-rule-row');
+		var row = e.currentTarget.closest('.mdscw-rule-row');
 		if (!row) {
 			return;
 		}
 
-		var rows = container.querySelectorAll('.scb-rule-row');
+		var rows = container.querySelectorAll('.mdscw-rule-row');
 		if (rows.length <= 1) {
 			row.querySelectorAll('input, textarea').forEach(function (field) {
 				field.value = '';

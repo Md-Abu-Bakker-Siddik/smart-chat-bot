@@ -1,9 +1,9 @@
-.scb-go-pro-wrap {
+.mdscw-go-pro-wrap {
 	max-width: 960px;
 	margin-top: 20px;
 }
 
-.scb-go-pro-hero {
+.mdscw-go-pro-hero {
 	text-align: center;
 	padding: 48px 32px;
 	background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
@@ -13,7 +13,7 @@
 	box-shadow: 0 8px 32px rgba(79, 70, 229, 0.25);
 }
 
-.scb-go-pro-badge {
+.mdscw-go-pro-badge {
 	display: inline-block;
 	padding: 4px 14px;
 	margin-bottom: 16px;
@@ -25,14 +25,14 @@
 	border-radius: 20px;
 }
 
-.scb-go-pro-hero h1 {
+.mdscw-go-pro-hero h1 {
 	margin: 0 0 12px;
 	font-size: 32px;
 	font-weight: 700;
 	color: #fff;
 }
 
-.scb-go-pro-subtitle {
+.mdscw-go-pro-subtitle {
 	margin: 0 auto 28px;
 	max-width: 560px;
 	font-size: 16px;
@@ -40,7 +40,7 @@
 	opacity: 0.92;
 }
 
-.scb-go-pro-fine-print {
+.mdscw-go-pro-fine-print {
 	margin: 16px auto 0;
 	max-width: 520px;
 	font-size: 13px;
@@ -48,7 +48,7 @@
 	opacity: 0.85;
 }
 
-.scb-go-pro-cta {
+.mdscw-go-pro-cta {
 	background: #fff !important;
 	color: #4f46e5 !important;
 	border: none !important;
@@ -56,19 +56,19 @@
 	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
 }
 
-.scb-go-pro-cta:hover {
+.mdscw-go-pro-cta:hover {
 	background: #f9fafb !important;
 	color: #4338ca !important;
 }
 
-.scb-go-pro-grid {
+.mdscw-go-pro-grid {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	gap: 24px;
 	margin-bottom: 40px;
 }
 
-.scb-go-pro-card {
+.mdscw-go-pro-card {
 	padding: 32px;
 	background: #fff;
 	border: 1px solid #e0e0e0;
@@ -76,41 +76,41 @@
 	text-align: center;
 }
 
-.scb-go-pro-card-pro {
+.mdscw-go-pro-card-pro {
 	border-color: #4f46e5;
 	box-shadow: 0 4px 24px rgba(79, 70, 229, 0.12);
 	position: relative;
 }
 
-.scb-go-pro-card h2 {
+.mdscw-go-pro-card h2 {
 	margin: 0 0 8px;
 	font-size: 20px;
 }
 
-.scb-go-pro-price {
+.mdscw-go-pro-price {
 	margin: 0 0 8px;
 	font-size: 36px;
 	font-weight: 700;
 	color: #1d2327;
 }
 
-.scb-go-pro-card-pro .scb-go-pro-price {
+.mdscw-go-pro-card-pro .mdscw-go-pro-price {
 	color: #4f46e5;
 }
 
-.scb-go-pro-desc {
+.mdscw-go-pro-desc {
 	margin: 0 0 20px;
 	color: #646970;
 	font-size: 14px;
 	line-height: 1.5;
 }
 
-.scb-go-pro-card-btn {
+.mdscw-go-pro-card-btn {
 	width: 100%;
 	justify-content: center;
 }
 
-.scb-go-pro-table-wrap {
+.mdscw-go-pro-table-wrap {
 	background: #fff;
 	border: 1px solid #e0e0e0;
 	border-radius: 12px;
@@ -118,40 +118,40 @@
 	margin-bottom: 32px;
 }
 
-.scb-go-pro-table-wrap h2 {
+.mdscw-go-pro-table-wrap h2 {
 	margin: 0 0 20px;
 	font-size: 18px;
 }
 
-.scb-go-pro-table {
+.mdscw-go-pro-table {
 	width: 100%;
 	border-collapse: collapse;
 }
 
-.scb-go-pro-table th,
-.scb-go-pro-table td {
+.mdscw-go-pro-table th,
+.mdscw-go-pro-table td {
 	padding: 14px 16px;
 	text-align: center;
 	border-bottom: 1px solid #f0f0f1;
 }
 
-.scb-go-pro-table th:first-child,
-.scb-go-pro-table td:first-child {
+.mdscw-go-pro-table th:first-child,
+.mdscw-go-pro-table td:first-child {
 	text-align: left;
 }
 
-.scb-go-pro-table thead th {
+.mdscw-go-pro-table thead th {
 	font-size: 13px;
 	font-weight: 600;
 	color: #646970;
 	background: #f9fafb;
 }
 
-.scb-go-pro-table tbody tr:last-child td {
+.mdscw-go-pro-table tbody tr:last-child td {
 	border-bottom: none;
 }
 
-.scb-check {
+.mdscw-check {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -164,17 +164,17 @@
 	font-size: 16px;
 }
 
-.scb-check-pro {
+.mdscw-check-pro {
 	background: #eef2ff;
 	color: #4f46e5;
 }
 
-.scb-dash {
+.mdscw-dash {
 	color: #c3c4c7;
 	font-size: 18px;
 }
 
-.scb-go-pro-footer {
+.mdscw-go-pro-footer {
 	text-align: center;
 	padding: 40px 32px;
 	background: #f9fafb;
@@ -182,26 +182,26 @@
 	border-radius: 12px;
 }
 
-.scb-go-pro-footer h3 {
+.mdscw-go-pro-footer h3 {
 	margin: 0 0 8px;
 	font-size: 22px;
 }
 
-.scb-go-pro-footer p {
+.mdscw-go-pro-footer p {
 	margin: 0 0 20px;
 	color: #646970;
 }
 
-.scb-pro-notice {
+.mdscw-pro-notice {
 	margin-top: 16px;
 }
 
 @media (max-width: 782px) {
-	.scb-go-pro-grid {
+	.mdscw-go-pro-grid {
 		grid-template-columns: 1fr;
 	}
 
-	.scb-go-pro-hero h1 {
+	.mdscw-go-pro-hero h1 {
 		font-size: 24px;
 	}
 }
